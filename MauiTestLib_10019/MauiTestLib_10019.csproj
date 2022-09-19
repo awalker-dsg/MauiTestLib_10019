@@ -1,16 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFrameworks>net6.0;net6.0-android;net6.0-ios</TargetFrameworks>
-		<UseMaui>true</UseMaui>
-		<SingleProject>true</SingleProject>
-		<ImplicitUsings>enable</ImplicitUsings>
+    <PropertyGroup>
+        <TargetFrameworks>net6.0;net6.0-android;net6.0-ios</TargetFrameworks>
+        <UseMaui>true</UseMaui>
+        <SingleProject>true</SingleProject>
+        <ImplicitUsings>enable</ImplicitUsings>
         <OutputType>Library</OutputType>
 
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.4</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">31.0</SupportedOSPlatformVersion>
-	</PropertyGroup>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.4</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">31.0</SupportedOSPlatformVersion>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    </PropertyGroup>
 
+    <!--
 	<ItemGroup>
 	  <None Remove="Resources\Images\question_mark.svg" />
 	</ItemGroup>
@@ -18,5 +20,20 @@
 	<ItemGroup>
 	  <MauiImage Include="Resources\Images\question_mark.svg" />
 	</ItemGroup>
+    -->
+
+    <ItemGroup>
+        <!-- This allows resources in the Resource\Images folder to be referenced using 
+             the file name alone, thus avoiding the need for the resource path. 
+        <MauiImage Include="Resources\Images\*.svg" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />-->
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="MauiTestLib_10019.targets" Pack="True" PackagePath="buildTransitive\" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <MauiImage Include="Resources\Images\question_mark.svg" Pack="True" PackagePath="buildTransitive\Images\" />
+    </ItemGroup>
 
 </Project>
